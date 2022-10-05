@@ -1,0 +1,14 @@
+{
+  "name": "tdd-asgn",
+  "version": "1.0.0",
+  "description": "",
+  "main": "stock.js",
+  "scripts": {
+    "test": "jest"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "jest": "^29.1.2"
+  }
+}
