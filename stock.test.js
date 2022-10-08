@@ -56,8 +56,34 @@ test('Testing numShares() without ticker -- success', () => {
     expect(result).toBe(target); 
 });
 
-test('Testing numShares() without ticker -- success', () => {
-    target = 0;
-    result = portfolio.numShares("SPY");
+test('Testing purchase() with no shares bought (step 7) -- success', () => {
+    result = portfolio.purchase("SPY", 0);
+    expect(result).toBeFalsy(); 
+});
+
+test("Testing sell() with too many shares sold (step 8) -- success()", () => {
+    result = portfolio.purchase("SPY", 5);
+    expect(()=> {portfolio.sell("SPY", 10);}).toThrowError(/Trying to Sell Too Many Shares/)
+});
+
+test("Testing sell() with enough shares to sell -- success()", () => {
+    portfolio.stocks["SPY"] = 5;
+    target = 3;
+    
+    result = portfolio.sell("SPY", 2);
     expect(result).toBe(target); 
+    // result = portfolio.purchase("SPY", 5);
+    // expect(result).toBeFalsy();
+    // expect(()=> {portfolio.sell("SPY", 2);}).toThrowError(/Trying to Sell Too Many Shares/)
+});
+
+test("Testing sell() all shares -- success()", () => {
+    portfolio.stocks["SPY"] = 5;
+    target = false;
+    portfolio.sell("SPY", 5);
+    result = portfolio.stocks.hasOwnProperty("SPY")
+    expect(result).toBe(target); 
+    // result = portfolio.purchase("SPY", 5);
+    // expect(result).toBeFalsy();
+    // expect(()=> {portfolio.sell("SPY", 2);}).toThrowError(/Trying to Sell Too Many Shares/)
 });
